@@ -278,6 +278,10 @@ Prefab:
       propertyPath: rotationPoint
       value: 
       objectReference: {fileID: 586725548}
+    - target: {fileID: 11463986, guid: 7a4173842f219c5478e305ce84bf0936, type: 2}
+      propertyPath: fireShots
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7a4173842f219c5478e305ce84bf0936, type: 2}
   m_IsPrefabParent: 0
@@ -1207,11 +1211,13 @@ MonoBehaviour:
     yMin: 0
     yMax: 8
   asteroidCount: 10
+  largeAsteroidCount: 0
   spawnWait: 2
   startWait: 3
   waveWait: 2
   earthPosition: {fileID: 586725548}
   asteroid: {fileID: 132170, guid: 9543c44c04b0dcd49ac54a8c1306120c, type: 2}
+  largeAsteroid: {fileID: 163324, guid: 07061c0a4a137ef4882a660386dbcc45, type: 2}
   player: {fileID: 513118840}
   rotationPoint: {fileID: 586725548}
   rotationSpeed: 100
@@ -1375,8 +1381,8 @@ RectTransform:
   m_RootOrder: 6
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 98.5999756, y: 30}
+  m_AnchoredPosition: {x: -1.90734863e-06, y: 0}
+  m_SizeDelta: {x: 208.199997, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!1 &2109221869
 GameObject:

@@ -8,6 +8,7 @@ TagManager:
   - Bolt
   - Boundary
   - Asteroid
+  - Shield
   layers:
   - Default
   - TransparentFX

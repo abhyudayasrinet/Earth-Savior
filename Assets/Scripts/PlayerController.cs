@@ -19,7 +19,13 @@ public class PlayerController : MonoBehaviour {
 
 
 	void Start () {
-
+		Transform[] childTransforms = GetComponentsInChildren<Transform>();
+		foreach(Transform transform in childTransforms){
+			if(transform.gameObject.tag == "Shield") {
+				transform.gameObject.SetActive(true);
+				break;
+			}
+		}
 		fireShots = true; //set space shit to fire shots
 		StartCoroutine(Blink (3, 0.5f, 0.5f)); //invulnerability for about 3 secs
 		invincible = false; //the player can be destroyed
@@ -151,6 +157,7 @@ public class PlayerController : MonoBehaviour {
 	//make the player blink while he is invincible
 	IEnumerator Blink(int nTimes, float timeOn, float timeOff)
 	{
+
 		invincible = true;
 		while (nTimes > 0)
 		{
@@ -161,7 +168,15 @@ public class PlayerController : MonoBehaviour {
 			nTimes--;
 		}
 		GetComponent<Renderer>().enabled = true;
+
 		invincible = false;
+		Renderer[] childRenderers = GetComponentsInChildren<Renderer> ();
+		foreach(Renderer renderer in childRenderers){
+			if(renderer.gameObject.tag == "Shield") {
+				renderer.gameObject.SetActive(false);
+				break;
+			}
+		}
 	}
 
 }

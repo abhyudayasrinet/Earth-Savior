@@ -13,12 +13,14 @@ public class GameController : MonoBehaviour {
 
 	public SpawnValues spawnValues; //values used to spawn asteroids
 	public int asteroidCount; //number of initial asteroids
+	public int largeAsteroidCount; //number of large asteroids
 	public float spawnWait; //time before new asteroid created
 	public float startWait; //time before game starts
 	public float waveWait; //time before new wave
 
 	public Transform earthPosition; //position of earth
 	public GameObject asteroid; //asteroid object
+	public GameObject largeAsteroid; //large asteroid object
 	private bool gameOver; //holds gameover state
 
 	public GameObject player; //player spaceship gameboject
@@ -140,38 +142,59 @@ public class GameController : MonoBehaviour {
 		scoreText.text = "Score : " + score; //update score banner
 	}
 
-
+	//generate spawn position for asteroid
+	Vector3 GetSpawnPosition()
+	{
+		int choice = Random.Range(0, 2); //choose the edge to appear from 0 - left 1 - top 2 - right
+		float x, y;
+		//set x and y coords for asteroid
+		if(choice == 0)
+		{
+			x = spawnValues.xMin;
+			y = Random.Range (spawnValues.yMin, spawnValues.yMax);
+		}
+		else if(choice == 1)
+		{
+			x = Random.Range (spawnValues.xMin, spawnValues.xMax);
+			y = spawnValues.yMax;
+		}
+		else
+		{
+			x = spawnValues.xMax;
+			y = Random.Range (spawnValues.yMin, spawnValues.yMax);
+		}
+		return new Vector3 (x, y, 0);
+	}
 	//routine to spawn waves
 	IEnumerator SpawnWaves()
 	{
 		yield return new WaitForSeconds (startWait); //intial wait when game begins
 		while (true)
 		{
-			for (int i = 0; i < asteroidCount; i++)
+			int largeAsteroidsLeft = largeAsteroidCount;
+			for (int i = 0; i < asteroidCount;)
 			{
-				int choice = Random.Range(0, 2); //choose the edge to appear from 0 - left 1 - top 2 - right
-				float x, y;
-				//set x and y coords for asteroid
-				if(choice == 0)
+				//create large asteroid
+				if(largeAsteroidsLeft > 0 && Random.Range (0,1) == 0)
 				{
-					x = spawnValues.xMin;
-					y = Random.Range (spawnValues.yMin, spawnValues.yMax);
-				}
-				else if(choice == 1)
-				{
-					x = Random.Range (spawnValues.xMin, spawnValues.xMax);
-					y = spawnValues.yMax;
+					//create large asteroid
+					Vector3 spawnPosition = GetSpawnPosition(); //get asteroid spawn location
+					Quaternion spawnRotation = Quaternion.identity;
+					Instantiate (largeAsteroid, spawnPosition, spawnRotation);
+					yield return new WaitForSeconds (spawnWait); //wait before spawning new asteroid
+					i++;
+					largeAsteroidsLeft--;
 				}
 				else
 				{
-					x = spawnValues.xMax;
-					y = Random.Range (spawnValues.yMin, spawnValues.yMax);
+					//create regular asteroid
+					Vector3 spawnPosition = GetSpawnPosition(); //get asteroid spawn location
+					Quaternion spawnRotation = Quaternion.identity;
+					Instantiate (asteroid, spawnPosition, spawnRotation);
+					yield return new WaitForSeconds (spawnWait); //wait before spawning new asteroid
+					i++;
 				}
-				//create the asteroid
-				Vector3 spawnPosition = new Vector3 (x, y, 0.0f);
-				Quaternion spawnRotation = Quaternion.identity;
-				Instantiate (asteroid, spawnPosition, spawnRotation);
-				yield return new WaitForSeconds (spawnWait); //wait before spawning new asteroid
+
 			}
 
 			wave++; //next wave
@@ -179,7 +202,8 @@ public class GameController : MonoBehaviour {
 			waveNumberText.text = "Wave " + wave; //update wave banner
 			spawnWait -= 0.1f; //decrease intermediate spawn time 
 			UpdateLives(1); //increment life
-
+			if(wave%3 == 0) //add a large asteroid every third wave
+				largeAsteroidCount++;
 			yield return new WaitForSeconds (waveWait); //wait before next wave
 
 

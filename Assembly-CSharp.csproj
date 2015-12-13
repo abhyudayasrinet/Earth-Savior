@@ -45,10 +45,10 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\AsteroidMover.cs" />
-     <Compile Include="Assets\Scripts\BoltMover.cs" />
+     <Compile Include="Assets\Scripts\AsteroidColliderController.cs" />
+     <Compile Include="Assets\Scripts\AsteroidController.cs" />
+     <Compile Include="Assets\Scripts\BoltController.cs" />
      <Compile Include="Assets\Scripts\DestroyByBoundary.cs" />
-     <Compile Include="Assets\Scripts\DestroyByContact.cs" />
      <Compile Include="Assets\Scripts\DestroyByTime.cs" />
      <Compile Include="Assets\Scripts\EarthRotator.cs" />
      <Compile Include="Assets\Scripts\EngineEffectRotator.cs" />
@@ -56,17 +56,11 @@
      <Compile Include="Assets\Scripts\MainMenuController.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\RandomRotator.cs" />
- <Reference Include="UnityEngine.Advertisements">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Analytics">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>
