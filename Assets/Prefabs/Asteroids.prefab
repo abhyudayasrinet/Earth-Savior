@@ -93,7 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   asteroidExplosion: {fileID: 100004, guid: 2857e183f4cd3df4e9096e5b578bd32f, type: 2}
   playerExplosion: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 2}
-  playerSpaceship: {fileID: 130846, guid: 7a4173842f219c5478e305ce84bf0936, type: 2}
+  playerSpaceship: {fileID: 150192, guid: 7a4173842f219c5478e305ce84bf0936, type: 2}
   scoreValue: 10
 --- !u!114 &11490178
 MonoBehaviour:
@@ -167,7 +167,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: playerSpaceship
       value: 
-      objectReference: {fileID: 130846, guid: 7a4173842f219c5478e305ce84bf0936, type: 2}
+      objectReference: {fileID: 150192, guid: 7a4173842f219c5478e305ce84bf0936, type: 2}
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: Asteroid

@@ -63,7 +63,9 @@ public class DestroyByContact : MonoBehaviour {
 					//create new player instance with invincibility for 2secs and deduct lives for death
 					Vector3 spawnLocation = new Vector3(0,-1.75f,0);
 					gameController.player = (GameObject)Instantiate(playerSpaceship, spawnLocation, Quaternion.Euler(270,0,0));
-
+					PlayerController newPlayerController = gameController.player.GetComponent<PlayerController>();
+					newPlayerController.earthPosition = gameController.earthPosition;
+					newPlayerController.rotationPoint = gameController.earthPosition;
 					gameController.UpdateLives(-3);
 				}
 				else //end game

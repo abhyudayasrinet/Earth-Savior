@@ -1,10 +1,14 @@
 fileFormatVersion: 2
 guid: dd63b2025669b1a45a0648b38a4a7d5c
-timeCreated: 1446994848
+timeCreated: 1450007526
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - shot: {fileID: 114900, guid: 0c7256c6abaaaf043940b4fa4a48956a, type: 2}
+  - shotSpawn: {instanceID: 0}
+  - earthPosition: {instanceID: 0}
+  - rotationPoint: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
