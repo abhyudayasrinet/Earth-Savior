@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 
@@ -24,53 +25,56 @@ public class GameController : MonoBehaviour {
 	public Transform rotationPoint; //point of rotation(earth center)
 	public float rotationSpeed; //speed of rotating the ship around earth
 
-	//GUI banners
-	public GUIText livesText;
-	public GUIText scoreText;
-	public GUIText gameOverText;
-	public GUIText waveNumberText;
-
 	public int lives; //lives left
 	public int score; //current score
 	private int highScore; //current highscore
 	private int wave; //wave number
 	private bool pause; //pause game state
-	private string pauseButtonText = "Pause"; //pause button text
 
 	private PlayerController playerController; //reference to player controller script
 
-	void OnGUI () 
-	{
-		if (GUI.Button (new Rect (Screen.width * 0.2f, 0.0f, Screen.width * 0.2f, Screen.height * 0.05f), "Restart"))  //restart button
+	//GUI variables
+	public Text pauseText; //button stating pause
+	public Text scoreText; //text showing score
+	public Text livesText; //text showing number of lives
+	public Text waveNumberText; //text showing the current wave number
+	public Text gameOverText; //text to show game over
+
+	//when restart is clicked
+	public void RestartClick() {
+
+		Application.LoadLevel (Application.loadedLevel);
+	}
+
+	//when pause is clicked
+	public void PauseClick() {
+		if(!gameOver)
 		{
-			Application.LoadLevel (Application.loadedLevel);
-		}
-		if (GUI.Button (new Rect (Screen.width * 0.6f, 0.0f, Screen.width * 0.2f, Screen.height * 0.05f), pauseButtonText)) //pause button
-		{
-			if(!gameOver)
+			if(!pause)
 			{
-				if(!pause)
-				{
-					//set time scale to 0 to pause game and change text to resume
-					pause = true;
-					Time.timeScale = 0.0f;
-					pauseButtonText = "Resume";
-				}
-				else
-				{
-					//set time scale to 1 to resume game and change text to pause
-					pause = false;
-					Time.timeScale = 1.0f;
-					pauseButtonText = "Pause";
-				}
+				//set time scale to 0 to pause game and change text to resume
+				pause = true;
+				Time.timeScale = 0.0f;
+				pauseText.text = "Resume";
+			}
+			else
+			{
+				//set time scale to 1 to resume game and change text to pause
+				pause = false;
+				Time.timeScale = 1.0f;
+				pauseText.text = "Pause";
 			}
 		}
+	}
 
+	public void BackClick() 
+	{
+		Application.LoadLevel(0); //go back to mainmenu
 	}
 
 	void Start () 
 	{
-		AudioListener.volume = 0.0f;
+		AudioListener.volume = 0.0f; //sound muted for debugging
 		highScore = PlayerPrefs.GetInt ("HighScore"); //get the current highscore value
 		GameObject playerControllerObject = GameObject.FindWithTag ("Player"); //reference the player game object
 		if (playerControllerObject != null) //get the playercontroller script reference
@@ -82,13 +86,12 @@ public class GameController : MonoBehaviour {
 			Debug.Log ("Cannot find 'Player' script");
 		}
 
-		livesText.text = "Lives : " + lives; //set lives banner text
+		livesText.text = "Lives " + lives; //set lives banner text
 		scoreText.text = "Score : " + score; //set score banner text
 		gameOverText.text = ""; //initially gameover banner is empty
 		Time.timeScale = 1.0f; //time scale set to 1 for continuous play 
 							   //0 for pause
 		pause = false;
-		pauseButtonText = "Pause"; //pause button text
 		wave = 1; //starting wave
 		waveNumberText.text = "Wave " + wave; //set wave number information on the banner
 		gameOver = false;
@@ -97,14 +100,16 @@ public class GameController : MonoBehaviour {
 
 	void Update () 
 	{
-
+		if (Input.GetKeyDown (KeyCode.Escape)) { //if back button is pressed
+			Application.LoadLevel(0); //go back to mainmenu
+		}
 	}
 
 	//called when game ends
 	public void GameOver() 
 	{
-		gameOver = true;
-		lives = 0;
+		gameOver = true; //set game over to true
+		lives = 0; //set lives to 0 in case they are greater than 0
 		livesText.text = "Lives : " + lives; //update lives banners
 		playerController.fireShots = false; //stop player from firing shots
 		if (score > highScore) { //new high score is made
