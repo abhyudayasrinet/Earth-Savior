@@ -76,7 +76,8 @@ public class GameController : MonoBehaviour {
 
 	void Start () 
 	{
-		AudioListener.volume = 0.0f; //sound muted for debugging
+		GetComponent<AudioSource>().Play (); //play audio
+		//AudioListener.volume = 0.0f; //sound muted for debugging
 		highScore = PlayerPrefs.GetInt ("HighScore"); //get the current highscore value
 		GameObject playerControllerObject = GameObject.FindWithTag ("Player"); //reference the player game object
 		if (playerControllerObject != null) //get the playercontroller script reference
