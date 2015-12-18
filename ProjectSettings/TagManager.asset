@@ -7,8 +7,10 @@ TagManager:
   - Earth
   - Bolt
   - Boundary
-  - Asteroid
+  - SmallAsteroid
   - Shield
+  - HealthPack
+  - LargeAsteroid
   layers:
   - Default
   - TransparentFX

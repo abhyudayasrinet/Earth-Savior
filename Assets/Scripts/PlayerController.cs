@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour {
 				
 				Vector3 initialPosition = transform.position;
 				float angle = Vector3.Angle(initialPosition, targetPosition);
-				if(angle > 0.05f)
+				if(angle > 0.01f)
 				{
 					if(initialPosition.y > -3.5f) {
 						

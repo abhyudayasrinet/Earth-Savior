@@ -42,6 +42,8 @@ public class GameController : MonoBehaviour {
 	public Text waveNumberText; //text showing the current wave number
 	public Text gameOverText; //text to show game over
 
+
+
 	//when restart is clicked
 	public void RestartClick() {
 

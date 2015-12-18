@@ -6,7 +6,7 @@ public class AsteroidController : MonoBehaviour {
 	
 	public Vector3 earthPosition; //location of earth
 	public float speed; //speed of asteroid
-	public float asteroidHP;
+	public float asteroidHP; //health points of the asteroid
 
 	void Start () {
 	}

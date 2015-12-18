@@ -95,6 +95,7 @@ MonoBehaviour:
   playerExplosion: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 2}
   playerSpaceship: {fileID: 150192, guid: 7a4173842f219c5478e305ce84bf0936, type: 2}
   scoreValue: 10
+  healthPack: {fileID: 137240, guid: cdbf3b5d6c90bad4abedc011124efea9, type: 2}
 --- !u!114 &11490178
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -177,6 +178,10 @@ Prefab:
       propertyPath: asteroidHP
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: healthPack
+      value: 
+      objectReference: {fileID: 137240, guid: cdbf3b5d6c90bad4abedc011124efea9, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 132170}

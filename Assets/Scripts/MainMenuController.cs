@@ -11,17 +11,14 @@ public class MainMenuController : MonoBehaviour {
 	public Button back; //back button in settings menu
 	public Slider soundSlider; //sound volume slider in settings menu
 
-	// Use this for initialization
+
 	void Start () {
 
-		//quitMenu = quitMenu.GetComponent<Canvas> ();
-		//play = play.GetComponent<Button> ();
-		//exit = play.GetComponent<Button> ();
-		quitMenu.enabled = false;
-		//settingsMenu = settingsMenu.GetComponent<Canvas> ();
+		//intially have exit and settings menu disabled
+		quitMenu.enabled = false; 
 		settingsMenu.enabled = false;
-		soundSlider.value = AudioListener.volume;
-		GetComponent<AudioSource> ().Play();
+		soundSlider.value = PlayerPrefs.GetFloat ("gameVolume", 1.0f); //set slider to set volume
+		GetComponent<AudioSource> ().Play(); //play music
 	}
 
 	void Update() {
@@ -46,6 +43,7 @@ public class MainMenuController : MonoBehaviour {
 	//sound slider is moved
 	public void SoundSliderMoved() {
 		AudioListener.volume = soundSlider.value;
+		PlayerPrefs.SetFloat ("gameVolume", soundSlider.value);
 	}
 
 	//settings menu back clicked

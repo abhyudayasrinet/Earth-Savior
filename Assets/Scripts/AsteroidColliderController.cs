@@ -11,6 +11,7 @@ public class AsteroidColliderController : MonoBehaviour {
 	public int scoreValue; //player score
 	private GameController gameController; //gamecontroller reference
 	private AsteroidController asteroidController; //asteroidcontroller script reference
+	public GameObject healthPack; //object reference to health pack
 	
 	void Start () 
 	{
@@ -29,12 +30,23 @@ public class AsteroidColliderController : MonoBehaviour {
 
 		//create destruction effect
 		Instantiate(asteroidExplosion, transform.position, transform.rotation);
-		
+
+		//if it is a large asteroid then drop a health pack with a 20%
+		if (tag == "LargeAsteroid") {
+
+			int chance = Random.Range(1,100);
+			if(chance <= 20) {
+				Instantiate(healthPack, gameObject.transform.position,gameObject.transform.rotation);
+			}
+		}
+
 		//destroy the asteroid
 		Destroy(gameObject);
 		
 		//update score 
 		gameController.AddScore (scoreValue);
+
+
 
 	}
 
