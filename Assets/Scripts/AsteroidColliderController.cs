@@ -12,6 +12,7 @@ public class AsteroidColliderController : MonoBehaviour {
 	private GameController gameController; //gamecontroller reference
 	private AsteroidController asteroidController; //asteroidcontroller script reference
 	public GameObject healthPack; //object reference to health pack
+	public GameObject shieldPowerUp; //object reference to shield power up
 	
 	void Start () 
 	{
@@ -34,10 +35,14 @@ public class AsteroidColliderController : MonoBehaviour {
 		//if it is a large asteroid then drop a health pack with a 20%
 		if (tag == "LargeAsteroid") {
 
-			int chance = Random.Range(1,100);
-			if(chance <= 20) {
+			int chance = Random.Range(1,100); //probability of a powerup dropping
+			if(chance <= 20) { //1-20
 				Instantiate(healthPack, gameObject.transform.position,gameObject.transform.rotation);
 			}
+			else if(chance <=40) {//21-40
+				Instantiate(shieldPowerUp, gameObject.transform.position, Quaternion.Euler(-90,-90, 0));
+			}
+
 		}
 
 		//destroy the asteroid

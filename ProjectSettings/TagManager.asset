@@ -11,6 +11,8 @@ TagManager:
   - Shield
   - HealthPack
   - LargeAsteroid
+  - Asteroid
+  - ShieldPowerUp
   layers:
   - Default
   - TransparentFX

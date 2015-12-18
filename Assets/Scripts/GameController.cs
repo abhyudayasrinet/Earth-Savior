@@ -33,7 +33,7 @@ public class GameController : MonoBehaviour {
 	private int wave; //wave number
 	private bool pause; //pause game state
 
-	private PlayerController playerController; //reference to player controller script
+	public PlayerController playerController; //reference to player controller script
 
 	//GUI variables
 	public Text pauseText; //button stating pause

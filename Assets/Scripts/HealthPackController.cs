@@ -6,7 +6,7 @@ public class HealthPackController: MonoBehaviour {
 	public Vector3 earthPosition; //location of earth
 	public float speed; //speed of healthpack
 	public int healthBonus; //hp gained from healthpack
-	private GameController gameController; //reference to playerController
+	private GameController gameController; //reference to gameController
 
 	// Use this for initialization
 	void Start () {
@@ -26,11 +26,11 @@ public class HealthPackController: MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-
+		print (other.gameObject.tag);
 		//if the health pack collides with the player then give the health bonus
-		if (other.gameObject.tag == "Player") {
-			Destroy(gameObject);
+		if (other.gameObject.tag == "Player" || other.gameObject.tag == "Shield") {
 			gameController.UpdateLives(healthBonus);
+			Destroy(gameObject);
 		}
 	}
 }

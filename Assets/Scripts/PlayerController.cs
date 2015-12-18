@@ -4,7 +4,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-
+	private const float INITIAL_SHIELD_DURATION = 5.0f; //initial duration of shield when game starts
 	public GameObject shot; //hold plasma shot object
 	public Transform shotSpawn; //spawn location for plasma shot
 	public float fireRate; //rate of firing shots
@@ -16,22 +16,26 @@ public class PlayerController : MonoBehaviour {
 
 	private float nextFire; //time before firing next shot
 	private Plane inputTouchPlane; //plane to convert screen coords to world coords on touch
-
+	private GameObject shieldGameObject; //player's shield game object
 
 	void Start () {
+
+		//get reference to shield game object
 		Transform[] childTransforms = GetComponentsInChildren<Transform>();
-		foreach(Transform transform in childTransforms){
-			if(transform.gameObject.tag == "Shield") {
-				transform.gameObject.SetActive(true);
-				break;
+		foreach (Transform transform in childTransforms) {
+			if (transform.gameObject.tag == "Shield") {
+				shieldGameObject = transform.gameObject;
 			}
 		}
+
 		fireShots = true; //set space shit to fire shots
-		StartCoroutine(Blink (3, 0.5f, 0.5f)); //invulnerability for about 3 secs
+		ActivateShield (INITIAL_SHIELD_DURATION); //invulnerability for 5 secs
 		invincible = false; //the player can be destroyed
 		inputTouchPlane = new Plane(new Vector3(0, 0, 1), new Vector3(0,0,0)); //input plane to convert viewport coords to world coords
 	}
-	
+
+
+
 	void Update() {
 
 		if (fireShots && Time.time > nextFire) //if firing shots and time is greater than time at which next shot is to be fired then shoot
@@ -76,14 +80,15 @@ public class PlayerController : MonoBehaviour {
 				}
 			}
 		}
-		if (Input.GetMouseButtonDown (0) || Input.GetMouseButton(0)) {
-			//print ("mouse click");
+		//mouse movement
+		if (Input.GetMouseButtonDown (0) || Input.GetMouseButton(0)) { 
+
 			Vector3 mouse_position = Input.mousePosition;
 			Ray ray = Camera.main.ScreenPointToRay(mouse_position);
 			float distance;
 			if (inputTouchPlane.Raycast(ray, out distance))
 			{
-				//print ("ray hit");
+			
 				//get the point that the ray hits the plane
 				Vector3 rayEnd = ray.GetPoint(distance);
 				
@@ -154,29 +159,19 @@ public class PlayerController : MonoBehaviour {
 		return new Vector3(0,0,0);
 	}
 
+	//give the player shield for duration
+	public void ActivateShield(float duration) {
+		StartCoroutine (Shield(duration));
+	}
+
 	//make the player blink while he is invincible
-	IEnumerator Blink(int nTimes, float timeOn, float timeOff)
+	private IEnumerator Shield(float duration)
 	{
-
-		invincible = true;
-		while (nTimes > 0)
-		{
-			GetComponent<Renderer>().enabled = true;
-			yield return new WaitForSeconds(timeOn);
-			GetComponent<Renderer>().enabled = false;
-			yield return new WaitForSeconds(timeOff);
-			nTimes--;
-		}
-		GetComponent<Renderer>().enabled = true;
-
-		invincible = false;
-		Renderer[] childRenderers = GetComponentsInChildren<Renderer> ();
-		foreach(Renderer renderer in childRenderers){
-			if(renderer.gameObject.tag == "Shield") {
-				renderer.gameObject.SetActive(false);
-				break;
-			}
-		}
+		shieldGameObject.SetActive(true); //activate shield
+		invincible = true; // set invincible true
+		yield return new WaitForSeconds (duration); //wait for duration
+		invincible = false; // set invincible false
+		shieldGameObject.SetActive (false); //remove shield
 	}
 
 }

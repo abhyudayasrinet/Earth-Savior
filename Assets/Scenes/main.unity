@@ -282,6 +282,10 @@ Prefab:
       propertyPath: fireShots
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 109312, guid: 7a4173842f219c5478e305ce84bf0936, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7a4173842f219c5478e305ce84bf0936, type: 2}
   m_IsPrefabParent: 0
@@ -1224,6 +1228,7 @@ MonoBehaviour:
   rotationSpeed: 100
   lives: 10
   score: 0
+  playerController: {fileID: 0}
   pauseText: {fileID: 1575692591}
   scoreText: {fileID: 39621086}
   livesText: {fileID: 946008251}
