@@ -305,6 +305,7 @@ GameObject:
   - 92: {fileID: 540936151}
   - 124: {fileID: 540936150}
   - 81: {fileID: 540936149}
+  - 95: {fileID: 540936154}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -374,11 +375,28 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 540936148}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 1, z: -260}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!95 &540936154
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 540936148}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 67574d90c28fc4942b981c1ddb8b7f62, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &586725544
 GameObject:
   m_ObjectHideFlags: 0
@@ -774,6 +792,7 @@ GameObject:
   - 33: {fileID: 1148496853}
   - 64: {fileID: 1148496852}
   - 23: {fileID: 1148496851}
+  - 95: {fileID: 1148496855}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -832,10 +851,27 @@ Transform:
   m_GameObject: {fileID: 1148496850}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 10}
-  m_LocalScale: {x: 55, y: 110, z: 1}
+  m_LocalScale: {x: 600, y: 1200, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+--- !u!95 &1148496855
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1148496850}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fad4ccd7af5dd93439b5fb7548915f42, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1575692588
 GameObject:
   m_ObjectHideFlags: 0
