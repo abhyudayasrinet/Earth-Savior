@@ -27,6 +27,14 @@ public class AsteroidColliderController : MonoBehaviour {
 
 	}
 
+	void OnParticleCollision(GameObject other) {
+
+		DestroyAsteroid ();
+
+		Debug.Log ("collison with " + other.tag);
+
+	}
+
 	void DestroyAsteroid() {
 
 		//create destruction effect
@@ -111,6 +119,10 @@ public class AsteroidColliderController : MonoBehaviour {
 					gameController.GameOver ();
 				}
 			}
+			break;
+
+		case "MegaBombEffect":
+			Debug.Log("mega bomb effect hit");
 			break;
 
 		}

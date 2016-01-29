@@ -23,9 +23,14 @@ public class GameController : MonoBehaviour {
 	public GameObject largeAsteroid; //large asteroid object
 	private bool gameOver; //holds gameover state
 
+
 	public GameObject player; //player spaceship gameboject
 	public Transform rotationPoint; //point of rotation(earth center)
 	public float rotationSpeed; //speed of rotating the ship around earth
+
+	public GameObject megaBombEffect; //mega bomb object reference
+	private EllipsoidParticleEmitter megaBombParticleEmitter; //mega bomb particle emitter
+
 
 	public int lives; //lives left
 	public int score; //current score
@@ -42,7 +47,15 @@ public class GameController : MonoBehaviour {
 	public Text waveNumberText; //text showing the current wave number
 	public Text gameOverText; //text to show game over
 
+	public void ActivateMegaBomb() {
 
+
+		//megaBombParticleEmitter = megaBombEffect.GetComponent<EllipsoidParticleEmitter> ();
+		Vector3 spawnPosition = player.transform.position;
+		Quaternion spawnRotation = Quaternion.identity;
+		Instantiate (megaBombEffect, spawnPosition, spawnRotation);
+
+	}
 
 	//when restart is clicked
 	public void RestartClick() {
@@ -82,14 +95,10 @@ public class GameController : MonoBehaviour {
 		//AudioListener.volume = 0.0f; //sound muted for debugging
 		highScore = PlayerPrefs.GetInt ("HighScore"); //get the current highscore value
 		GameObject playerControllerObject = GameObject.FindWithTag ("Player"); //reference the player game object
-		if (playerControllerObject != null) //get the playercontroller script reference
-		{
-			playerController = playerControllerObject.GetComponent <PlayerController>();
-		}
-		if (playerController == null)
-		{
-			Debug.Log ("Cannot find 'Player' script");
-		}
+		playerController = playerControllerObject.GetComponent <PlayerController>();
+
+		//megaBombEffect = GameObject.FindWithTag ("MegaBombEffect"); //get reference to mega bomb effect
+		//megaBombParticleEmitter = megaBombEffect.GetComponent<EllipsoidParticleEmitter> (); //
 
 		livesText.text = "Lives " + lives; //set lives banner text
 		scoreText.text = "Score : " + score; //set score banner text
