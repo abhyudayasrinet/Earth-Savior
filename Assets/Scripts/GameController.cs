@@ -68,6 +68,13 @@ public class GameController : MonoBehaviour {
 		//add error blinker message
 	}
 
+
+	public void getMegaBomb() {
+
+		megaBombCount = Mathf.Min (megaBombCount + 1, 5);
+		megaBombCountText.text = megaBombCount + "";
+	}
+
 	public void ActivateMegaBomb() {
 
 		if (megaBombCount > 0) {
@@ -75,6 +82,7 @@ public class GameController : MonoBehaviour {
 			Quaternion spawnRotation = Quaternion.identity;
 			Instantiate (megaBombEffect, spawnPosition, spawnRotation);
 			megaBombCount -= 1;
+			megaBombCountText.text = megaBombCount + "";
 		}
 		//add error blinker message
 	}

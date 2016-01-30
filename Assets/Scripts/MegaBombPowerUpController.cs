@@ -7,9 +7,13 @@ public class MegaBombPowerUpController : MonoBehaviour {
 
 	public Vector3 earthPosition; //location of earth
 	public float speed; //speed of movement
-	
+	private GameController gameController; //reference to game controller
+
 	void Start () {
-	
+		
+		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
+		gameController = gameControllerObject.GetComponent <GameController> ();
+
 	}
 	
 	// Update is called once per frame
@@ -23,8 +27,11 @@ public class MegaBombPowerUpController : MonoBehaviour {
 
 		if (other.tag == "Player") {
 			Destroy(gameObject);
-			print ("increase mega bombs by 1");
-			//increase number of mega bombs by 1
+
+			//increment shield count
+			gameController.getMegaBomb();
+
+			Destroy(gameObject); //destroy the mega bomb object
 		}
 	}
 }
