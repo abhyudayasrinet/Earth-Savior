@@ -8,6 +8,7 @@ public class ShieldPowerUpController : MonoBehaviour {
 	public float duration; //duration of shield
 	public float rotationSpeed; //speed of rotation of the object
 	private PlayerController playerController; //reference to playerController
+	private GameController gameController; //reference to game controller
 	
 
 	void Start () {
@@ -15,6 +16,10 @@ public class ShieldPowerUpController : MonoBehaviour {
 		//get reference to current player controller
 		GameObject playerControllerObject = GameObject.FindWithTag ("Player");
 		playerController = playerControllerObject.GetComponent <PlayerController>();
+
+		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
+		gameController = gameControllerObject.GetComponent <GameController> ();
+
 
 	}
 
@@ -33,7 +38,11 @@ public class ShieldPowerUpController : MonoBehaviour {
 		if (other.gameObject.tag == "Player") {
 
 			//give shield to player for duration
-			playerController.ActivateShield(duration);
+			//playerController.ActivateShield(duration);
+
+			//increment shield count
+			gameController.getShield();
+
 			Destroy(gameObject); //destroy the shield object
 
 		}

@@ -31,9 +31,12 @@ public class GameController : MonoBehaviour {
 	public GameObject megaBombEffect; //mega bomb object reference
 	private EllipsoidParticleEmitter megaBombParticleEmitter; //mega bomb particle emitter
 
+	private int megaBombCount; //number of mega bombs the player has
+	private int shieldCount; //number of shield packs the player has
 
 	public int lives; //lives left
 	public int score; //current score
+	public int shieldDuration; //duration of shield
 	private int highScore; //current highscore
 	private int wave; //wave number
 	private bool pause; //pause game state
@@ -46,15 +49,34 @@ public class GameController : MonoBehaviour {
 	public Text livesText; //text showing number of lives
 	public Text waveNumberText; //text showing the current wave number
 	public Text gameOverText; //text to show game over
+	public Text megaBombCountText; //text to show mega bomb count
+	public Text shieldCountText; //text to show shield count
+
+
+	public void getShield() {
+		shieldCount = Mathf.Min (shieldCount + 1, 5);
+		shieldCountText.text = shieldCount+"";
+	}
+
+	public void ActivateShield() {
+		if (shieldCount > 0) {
+			playerController.ActivateShield (shieldDuration);
+			shieldCount -= 1;
+			shieldCountText.text = shieldCount+"";
+			//Debug.Log (shieldCount);
+		}
+		//add error blinker message
+	}
 
 	public void ActivateMegaBomb() {
 
-
-		//megaBombParticleEmitter = megaBombEffect.GetComponent<EllipsoidParticleEmitter> ();
-		Vector3 spawnPosition = player.transform.position;
-		Quaternion spawnRotation = Quaternion.identity;
-		Instantiate (megaBombEffect, spawnPosition, spawnRotation);
-
+		if (megaBombCount > 0) {
+			Vector3 spawnPosition = player.transform.position;
+			Quaternion spawnRotation = Quaternion.identity;
+			Instantiate (megaBombEffect, spawnPosition, spawnRotation);
+			megaBombCount -= 1;
+		}
+		//add error blinker message
 	}
 
 	//when restart is clicked
@@ -97,8 +119,8 @@ public class GameController : MonoBehaviour {
 		GameObject playerControllerObject = GameObject.FindWithTag ("Player"); //reference the player game object
 		playerController = playerControllerObject.GetComponent <PlayerController>();
 
-		//megaBombEffect = GameObject.FindWithTag ("MegaBombEffect"); //get reference to mega bomb effect
-		//megaBombParticleEmitter = megaBombEffect.GetComponent<EllipsoidParticleEmitter> (); //
+		megaBombCount = 0; //initially set to 0
+		shieldCount = 0;
 
 		livesText.text = "Lives " + lives; //set lives banner text
 		scoreText.text = "Score : " + score; //set score banner text

@@ -44,10 +44,10 @@ public class AsteroidColliderController : MonoBehaviour {
 		if (tag == "LargeAsteroid") {
 
 			int chance = Random.Range(1,100); //probability of a powerup dropping
-			if(chance <= 20) { //1-20
+			if(chance <= 20) { //1-20 healthpack
 				Instantiate(healthPack, gameObject.transform.position,gameObject.transform.rotation);
 			}
-			else if(chance <=40) {//21-40
+			else if(chance <=40) {//21-40 shield
 				Instantiate(shieldPowerUp, gameObject.transform.position, Quaternion.Euler(-90,-90, 0));
 			}
 
@@ -121,9 +121,9 @@ public class AsteroidColliderController : MonoBehaviour {
 			}
 			break;
 
-		case "MegaBombEffect":
-			Debug.Log("mega bomb effect hit");
-			break;
+	//	case "MegaBombEffect":
+	//		Debug.Log("mega bomb effect hit");
+	//		break;
 
 		}
 	}
