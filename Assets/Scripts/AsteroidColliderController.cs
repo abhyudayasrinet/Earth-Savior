@@ -14,12 +14,14 @@ public class AsteroidColliderController : MonoBehaviour {
 	public GameObject healthPack; //object reference to health pack
 	public GameObject shieldPowerUp; //object reference to shield power up
 	public GameObject megaBombPowerUp; //object reference to mega bomb
+	public bool particleCollision; //to handle collision with only one particle
 	
 	void Start () 
 	{
 		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
 		gameController = gameControllerObject.GetComponent <GameController>();	
 		asteroidController = gameObject.GetComponent<AsteroidController>();
+		particleCollision = false;
 	}
 	
 
@@ -30,8 +32,10 @@ public class AsteroidColliderController : MonoBehaviour {
 
 	void OnParticleCollision(GameObject other) {
 
+		if (particleCollision)
+			return;
 		DestroyAsteroid ();
-
+		particleCollision = true;
 		Debug.Log ("collison with " + other.tag);
 
 	}
@@ -67,6 +71,8 @@ public class AsteroidColliderController : MonoBehaviour {
 
 
 	}
+
+
 
 	//when an enter trigger fires
 	void OnTriggerEnter(Collider other) {

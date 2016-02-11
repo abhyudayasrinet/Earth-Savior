@@ -51,6 +51,7 @@ public class GameController : MonoBehaviour {
 	public Text gameOverText; //text to show game over
 	public Text megaBombCountText; //text to show mega bomb count
 	public Text shieldCountText; //text to show shield count
+	public Canvas BackMenu; //canvas holding back menu confirmation buttons
 
 
 	public void getShield() {
@@ -60,6 +61,9 @@ public class GameController : MonoBehaviour {
 
 	public void ActivateShield() {
 		if (shieldCount > 0) {
+
+			GameObject playerControllerObject = GameObject.FindWithTag ("Player"); //reference the player game object
+			playerController = playerControllerObject.GetComponent <PlayerController>();
 			playerController.ActivateShield (shieldDuration);
 			shieldCount -= 1;
 			shieldCountText.text = shieldCount+"";
@@ -95,7 +99,8 @@ public class GameController : MonoBehaviour {
 
 	//when pause is clicked
 	public void PauseClick() {
-		if(!gameOver)
+		
+		if(!gameOver && !BackMenu.enabled)
 		{
 			if(!pause)
 			{
@@ -114,20 +119,32 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+
 	public void BackClick() 
+	{
+		PauseClick (); //pause the game
+		BackMenu.enabled = true;
+	}
+
+	public void BackConfirmClick()
 	{
 		Application.LoadLevel(0); //go back to mainmenu
 	}
 
+	public void BackCancelClick()
+	{
+		BackMenu.enabled = false;
+		PauseClick (); //resume the game
+	}
+		
 	void Start () 
 	{
 		GetComponent<AudioSource>().Play (); //play audio
 		//AudioListener.volume = 0.0f; //sound muted for debugging
 		highScore = PlayerPrefs.GetInt ("HighScore"); //get the current highscore value
-		GameObject playerControllerObject = GameObject.FindWithTag ("Player"); //reference the player game object
-		playerController = playerControllerObject.GetComponent <PlayerController>();
 
-		megaBombCount = 0; //initially set to 0
+
+		megaBombCount = 1; //initially set to 0
 		shieldCount = 0;
 
 		livesText.text = "Lives " + lives; //set lives banner text
@@ -140,6 +157,8 @@ public class GameController : MonoBehaviour {
 		waveNumberText.text = "Wave " + wave; //set wave number information on the banner
 		gameOver = false;
 		StartCoroutine (SpawnWaves ()); //start spawning waves
+
+		BackMenu.enabled = false; //keep menu disabled
 	}
 
 	void Update () 
@@ -155,6 +174,8 @@ public class GameController : MonoBehaviour {
 		gameOver = true; //set game over to true
 		lives = 0; //set lives to 0 in case they are greater than 0
 		livesText.text = "Lives : " + lives; //update lives banners
+		GameObject playerControllerObject = GameObject.FindWithTag ("Player"); //reference the player game object
+		playerController = playerControllerObject.GetComponent <PlayerController>();
 		playerController.fireShots = false; //stop player from firing shots
 		if (score > highScore) { //new high score is made
 			gameOverText.text = "New High Score!!";
