@@ -6,6 +6,7 @@ public class MainMenuController : MonoBehaviour {
 
 	public Canvas quitMenu; //are you sure quit menu reference
 	public Canvas settingsMenu; //settings menu reference
+	public Canvas mainMenu; //main menu reference
 	public Button play; //play button 
 	public Button exit; //exit button
 	public Button back; //back button in settings menu
@@ -36,8 +37,9 @@ public class MainMenuController : MonoBehaviour {
 	//settings button clicked
 	public void SettingsClick() {
 		settingsMenu.enabled = true;
-		play.enabled = false;
-		exit.enabled = false;
+		mainMenu.enabled = false;
+		//play.enabled = false;
+		//exit.enabled = false;
 	}
 
 	//sound slider is moved
@@ -49,22 +51,25 @@ public class MainMenuController : MonoBehaviour {
 	//settings menu back clicked
 	public void BackClick() {
 		settingsMenu.enabled = false;
-		play.enabled = true;
-		exit.enabled = true;
+		mainMenu.enabled = true;
+		//play.enabled = true;
+		//exit.enabled = true;
 	}
 
 	//exit button pressed
 	public void ExitClick() {
 		quitMenu.enabled = true;
-		play.enabled = false;
-		exit.enabled = false;
+		mainMenu.enabled = false;
+		//play.enabled = false;
+		//exit.enabled = false;
 	}
 
 	//no pressed in the quit menu
 	public void NoClick() {
 		quitMenu.enabled = false;
-		play.enabled = true;
-		exit.enabled = true;
+		mainMenu.enabled = true;
+		//play.enabled = true;
+		//exit.enabled = true;
 	}
 
 	//yes pressed in the quit menu

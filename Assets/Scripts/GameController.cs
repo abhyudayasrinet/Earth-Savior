@@ -93,8 +93,8 @@ public class GameController : MonoBehaviour {
 
 	//when restart is clicked
 	public void RestartClick() {
-
-		Application.LoadLevel (Application.loadedLevel);
+		if(!BackMenu.enabled)
+			Application.LoadLevel (Application.loadedLevel);
 	}
 
 	//when pause is clicked

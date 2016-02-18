@@ -132,6 +132,14 @@ public class AsteroidColliderController : MonoBehaviour {
 			}
 			break;
 
+		case "Asteroid":
+			DestroyAsteroid ();
+			break;
+
+		case "LargeAsteroid":
+			DestroyAsteroid ();
+			break;
+			
 	//	case "MegaBombEffect":
 	//		Debug.Log("mega bomb effect hit");
 	//		break;
