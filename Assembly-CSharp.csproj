@@ -45,6 +45,38 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\GoogleMobileAds\Api\AdFailedToLoadEventArgs.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Api\AdPosition.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Api\AdRequest.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Api\AdSize.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Api\BannerView.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Api\Gender.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Api\ICustomInAppPurchase.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Api\ICustomInAppPurchaseProcessor.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Api\IDefaultInAppPurchaseProcessor.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Api\IInAppPurchaseResult.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Api\InterstitialAd.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Api\Reward.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Api\RewardBasedVideoAd.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Common\DummyClient.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Common\IBannerClient.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Common\IInterstitialClient.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Common\IRewardBasedVideoAdClient.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\Android\BannerClient.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\Android\CustomInAppPurchaseListener.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\Android\DefaultInAppPurchaseListener.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\Android\InAppPurchase.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\Android\InAppPurchaseResult.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\Android\InterstitialClient.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\Android\RewardBasedVideoAdClient.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\Android\Utils.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\GoogleMobileAdsClientFactory.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\BannerClient.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\Externs.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\InterstitialClient.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\MonoPInvokeCallbackAttribute.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\RewardBasedVideoAdClient.cs" />
+     <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\Utils.cs" />
      <Compile Include="Assets\Scripts\AsteroidColliderController.cs" />
      <Compile Include="Assets\Scripts\AsteroidController.cs" />
      <Compile Include="Assets\Scripts\AsteroidMover.cs" />
@@ -62,6 +94,7 @@
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\RandomRotator.cs" />
      <Compile Include="Assets\Scripts\ShieldPowerUpController.cs" />
+     <None Include="Assets\Plugins\Android\GoogleMobileAdsPlugin\AndroidManifest.xml" />
      <None Include="Assets\Detonator Explosion Framework\Resources\Detonator\Textures\HeatDistort.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

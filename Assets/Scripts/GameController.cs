@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-
+using UnityEngine.SceneManagement;
+using GoogleMobileAds.Api;
 
 [System.Serializable]
 public class SpawnValues
@@ -53,6 +54,7 @@ public class GameController : MonoBehaviour {
 	public Text shieldCountText; //text to show shield count
 	public Canvas BackMenu; //canvas holding back menu confirmation buttons
 
+	InterstitialAd interstitial;//interstitial ad object
 
 	public void getShield() {
 		shieldCount = Mathf.Min (shieldCount + 1, 5);
@@ -93,8 +95,14 @@ public class GameController : MonoBehaviour {
 
 	//when restart is clicked
 	public void RestartClick() {
-		if(!BackMenu.enabled)
-			Application.LoadLevel (Application.loadedLevel);
+		
+		if (!BackMenu.enabled) {
+			//Application.LoadLevel (Application.loadedLevel);
+			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
+			if (interstitial.IsLoaded()) {
+				interstitial.Show();
+			}
+		}
 	}
 
 	//when pause is clicked
@@ -128,7 +136,11 @@ public class GameController : MonoBehaviour {
 
 	public void BackConfirmClick()
 	{
-		Application.LoadLevel(0); //go back to mainmenu
+		//Application.LoadLevel(0); //go back to mainmenu
+		SceneManager.LoadScene("mainmenu");
+		if (interstitial.IsLoaded()) {
+			interstitial.Show();
+		}
 	}
 
 	public void BackCancelClick()
@@ -144,7 +156,7 @@ public class GameController : MonoBehaviour {
 		highScore = PlayerPrefs.GetInt ("HighScore"); //get the current highscore value
 
 
-		megaBombCount = 1; //initially set to 0
+		megaBombCount = 0; //initially set to 0
 		shieldCount = 0;
 
 		livesText.text = "Lives " + lives; //set lives banner text
@@ -159,12 +171,31 @@ public class GameController : MonoBehaviour {
 		StartCoroutine (SpawnWaves ()); //start spawning waves
 
 		BackMenu.enabled = false; //keep menu disabled
+
+		RequestInterstitial (); //Request Interstitial ad
+	}
+
+	private void RequestInterstitial()
+	{
+		string adUnitId = "ca-app-pub-4192002242677873/1267225744";
+
+
+		// Initialize an InterstitialAd.
+		interstitial = new InterstitialAd(adUnitId);
+		// Create an empty ad request.
+		AdRequest request = new AdRequest.Builder().Build();
+		// Load the interstitial with the request.
+		interstitial.LoadAd(request);
 	}
 
 	void Update () 
 	{
 		if (Input.GetKeyDown (KeyCode.Escape)) { //if back button is pressed
-			Application.LoadLevel(0); //go back to mainmenu
+			//Application.LoadLevel(0); //go back to mainmenu
+			SceneManager.LoadScene("mainmenu");
+			if (interstitial.IsLoaded()) {
+				interstitial.Show();
+			}
 		}
 	}
 

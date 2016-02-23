@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using GoogleMobileAds.Api;
+
 
 public class MainMenuController : MonoBehaviour {
 
@@ -12,6 +15,8 @@ public class MainMenuController : MonoBehaviour {
 	public Button back; //back button in settings menu
 	public Slider soundSlider; //sound volume slider in settings menu
 
+	//public Text logText;
+	BannerView bannerView; //banner view ad
 
 	void Start () {
 
@@ -20,6 +25,30 @@ public class MainMenuController : MonoBehaviour {
 		settingsMenu.enabled = false;
 		soundSlider.value = PlayerPrefs.GetFloat ("gameVolume", 1.0f); //set slider to set volume
 		GetComponent<AudioSource> ().Play(); //play music
+
+		RequestBanner (); //request ad
+	}
+
+	private void RequestBanner()
+	{
+		
+		string adUnitId = "ca-app-pub-4192002242677873/6684317346";
+
+		//logText.text = adUnitId;
+
+		// Create a 320x50 banner at the top of the screen.
+		bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Bottom);
+		// Create an empty ad request.
+		AdRequest request2 = new AdRequest.Builder().Build();
+		// Load the banner with the request.
+		bannerView.LoadAd(request2);
+
+		//logText.text = "over";
+	}
+
+	//destroy the ad once scene changes
+	void OnDestroy() {
+		bannerView.Destroy (); //destroy ad
 	}
 
 	void Update() {
@@ -82,7 +111,9 @@ public class MainMenuController : MonoBehaviour {
 
 	//play clicked
 	public void PlayClick() {
-		Application.LoadLevel("main");
+		//Application.LoadLevel("main");
+		SceneManager.LoadScene("main");
+		//SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
 	}
 	
