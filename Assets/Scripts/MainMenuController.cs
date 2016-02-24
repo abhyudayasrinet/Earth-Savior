@@ -10,6 +10,7 @@ public class MainMenuController : MonoBehaviour {
 	public Canvas quitMenu; //are you sure quit menu reference
 	public Canvas settingsMenu; //settings menu reference
 	public Canvas mainMenu; //main menu reference
+	public Canvas instructionsMenu; //instructions menu reference
 	public Button play; //play button 
 	public Button exit; //exit button
 	public Button back; //back button in settings menu
@@ -22,6 +23,7 @@ public class MainMenuController : MonoBehaviour {
 
 		//intially have exit and settings menu disabled
 		quitMenu.enabled = false; 
+		instructionsMenu.enabled = false;
 		settingsMenu.enabled = false;
 		soundSlider.value = PlayerPrefs.GetFloat ("gameVolume", 1.0f); //set slider to set volume
 		GetComponent<AudioSource> ().Play(); //play music
@@ -61,6 +63,22 @@ public class MainMenuController : MonoBehaviour {
 				ExitClick ();
 
 		}
+	}
+
+	//instructions button clicked
+	//show instructions
+	public void InstructionsClick() {
+
+		mainMenu.enabled = false;
+		instructionsMenu.enabled = true;
+
+	}
+
+	//back to menu from instructions
+	public void InstructionsBackClick() {
+		
+		mainMenu.enabled = true;
+		instructionsMenu.enabled = false;
 	}
 
 	//settings button clicked
