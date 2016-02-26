@@ -55,10 +55,12 @@ public class MainMenuController : MonoBehaviour {
 
 	void Update() {
 		if (Input.GetKeyDown (KeyCode.Escape)) { //if back button is pressed
-			if(quitMenu.enabled) //if quit menu is displayed remove it
-				NoClick();
-			else if(settingsMenu.enabled)
-				BackClick();
+			if (quitMenu.enabled) //if quit menu is displayed remove it
+				NoClick ();
+			else if (settingsMenu.enabled) //is settings menu is showing
+				BackClick ();
+			else if (instructionsMenu.enabled) //if instructions menu is showing
+				InstructionsBackClick ();
 			else //display quit menu
 				ExitClick ();
 
