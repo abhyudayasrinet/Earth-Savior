@@ -2094,6 +2094,7 @@ MonoBehaviour:
     yMax: 10
   asteroidCount: 10
   largeAsteroidCount: 0
+  asteroidLimit: 0
   spawnWait: 2
   startWait: 3
   waveWait: 2
