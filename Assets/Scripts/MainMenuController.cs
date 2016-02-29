@@ -14,6 +14,7 @@ public class MainMenuController : MonoBehaviour {
 	public Button play; //play button 
 	public Button exit; //exit button
 	public Button back; //back button in settings menu
+	public Text highScoreText; //text showing the high score
 	public Slider soundSlider; //sound volume slider in settings menu
 
 	//public Text logText;
@@ -26,6 +27,11 @@ public class MainMenuController : MonoBehaviour {
 		instructionsMenu.enabled = false;
 		settingsMenu.enabled = false;
 		soundSlider.value = PlayerPrefs.GetFloat ("gameVolume", 1.0f); //set slider to set volume
+		int highScore = PlayerPrefs.GetInt ("HighScore",0); //get the current highscore value
+		if (highScore > 0)
+			highScoreText.text = "HighScore : " + highScore;
+		else
+			highScoreText.text = "";
 		GetComponent<AudioSource> ().Play(); //play music
 
 		RequestBanner (); //request ad
@@ -73,7 +79,7 @@ public class MainMenuController : MonoBehaviour {
 
 		mainMenu.enabled = false;
 		instructionsMenu.enabled = true;
-
+		bannerView.Hide (); //hide ad for space
 	}
 
 	//back to menu from instructions
@@ -81,6 +87,7 @@ public class MainMenuController : MonoBehaviour {
 		
 		mainMenu.enabled = true;
 		instructionsMenu.enabled = false;
+		bannerView.Show (); //show ad
 	}
 
 	//settings button clicked

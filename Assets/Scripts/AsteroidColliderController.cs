@@ -34,41 +34,45 @@ public class AsteroidColliderController : MonoBehaviour {
 
 		if (particleCollision)
 			return;
-		DestroyAsteroid ();
+		DestroyAsteroid (true);
 		particleCollision = true;
 		Debug.Log ("collison with " + other.tag);
 
 	}
 
-	void DestroyAsteroid() {
+	//destroy the asteroid
+	//valid hit when asteroid dies by hitting shield,bolt,player,earth, megabombeffect
+	void DestroyAsteroid(bool validHit) {
 
 		//create destruction effect
 		Instantiate(asteroidExplosion, transform.position, transform.rotation);
 
-		//if it is a large asteroid then drop a health pack with a 20%
-		if (tag == "LargeAsteroid") {
-
-			int chance = Random.Range(1,100); //probability of a powerup dropping
-			if (chance <= 20) { //1-20 healthpack
-				Instantiate (healthPack, gameObject.transform.position, gameObject.transform.rotation);
-			} 
-			else if (chance <= 40) {//21-40 shield
-				Instantiate (shieldPowerUp, gameObject.transform.position, Quaternion.Euler (-90, -90, 0));
-			} 
-			else if (chance <= 50) {
-				Instantiate (megaBombPowerUp, gameObject.transform.position, Quaternion.Euler (-90, -90, 0));
-			
-			}
-
-		}
-
 		//destroy the asteroid
 		Destroy(gameObject);
+
+		if (validHit) {
+			
+			//if it is a large asteroid then drop a health pack with a 20%
+			if (tag == "LargeAsteroid") {
+
+				int chance = Random.Range (1, 100); //probability of a powerup dropping
+				if (chance <= 20) { //1-20 healthpack
+					Instantiate (healthPack, gameObject.transform.position, gameObject.transform.rotation);
+				} else if (chance <= 40) {//21-40 shield
+					Instantiate (shieldPowerUp, gameObject.transform.position, Quaternion.Euler (-90, -90, 0));
+				} else if (chance <= 50) {
+					Instantiate (megaBombPowerUp, gameObject.transform.position, Quaternion.Euler (-90, -90, 0));
+			
+				}
+
+			}
+
+
 		
-		//update score 
-		gameController.AddScore (scoreValue);
+			//update score 
+			gameController.AddScore (scoreValue);
 
-
+		}
 
 	}
 
@@ -88,22 +92,22 @@ public class AsteroidColliderController : MonoBehaviour {
 			asteroidController.asteroidHP -= boltController.damage;
 			if(asteroidController.asteroidHP <= 0)
 			{
-				DestroyAsteroid();
+				DestroyAsteroid(true);
 			}
 			Destroy (other.gameObject);
 			break;
 
 		case "Shield": //if it hits the shield destroy the asteroid
-			DestroyAsteroid();
+			DestroyAsteroid(true);
 			break;
 
 		case "Earth" : //if it hits earth then subtract one life
-			DestroyAsteroid();
+			DestroyAsteroid(true);
 			gameController.UpdateLives(-2);
 			break;
 
 		case "Player": 
-			DestroyAsteroid();
+			DestroyAsteroid(true);
 			PlayerController playerController = other.gameObject.GetComponent<PlayerController>();
 			if(!playerController.invincible) //if the player is destructible
 			{
@@ -133,11 +137,11 @@ public class AsteroidColliderController : MonoBehaviour {
 			break;
 
 		case "Asteroid":
-			DestroyAsteroid ();
+			DestroyAsteroid (false);
 			break;
 
 		case "LargeAsteroid":
-			DestroyAsteroid ();
+			DestroyAsteroid (false);
 			break;
 			
 	//	case "MegaBombEffect":

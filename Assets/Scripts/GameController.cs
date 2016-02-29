@@ -52,6 +52,7 @@ public class GameController : MonoBehaviour {
 	public Text gameOverText; //text to show game over
 	public Text megaBombCountText; //text to show mega bomb count
 	public Text shieldCountText; //text to show shield count
+	public Text highScoreText; //show highscore
 	public Canvas BackMenu; //canvas holding back menu confirmation buttons
 
 	InterstitialAd interstitial;//interstitial ad object
@@ -132,6 +133,7 @@ public class GameController : MonoBehaviour {
 	{
 		PauseClick (); //pause the game
 		BackMenu.enabled = true;
+		gameOverText.text = ""; //remove game over text
 	}
 
 	public void BackConfirmClick()
@@ -153,7 +155,7 @@ public class GameController : MonoBehaviour {
 	{
 		GetComponent<AudioSource>().Play (); //play audio
 		//AudioListener.volume = 0.0f; //sound muted for debugging
-		highScore = PlayerPrefs.GetInt ("HighScore"); //get the current highscore value
+		highScore = PlayerPrefs.GetInt ("HighScore",0); //get the current highscore value
 
 
 		megaBombCount = 0; //initially set to 0
@@ -164,6 +166,7 @@ public class GameController : MonoBehaviour {
 		gameOverText.text = ""; //initially gameover banner is empty
 		Time.timeScale = 1.0f; //time scale set to 1 for continuous play 
 							   //0 for pause
+		highScoreText.text = "HIGHSCORE : " +highScore; //display highscore
 		pause = false;
 		wave = 1; //starting wave
 		waveNumberText.text = "Wave " + wave; //set wave number information on the banner
