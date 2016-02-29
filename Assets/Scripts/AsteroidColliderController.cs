@@ -67,11 +67,11 @@ public class AsteroidColliderController : MonoBehaviour {
 
 			}
 
-
-		
 			//update score 
 			gameController.AddScore (scoreValue);
 
+		} else {
+			gameController.asteroidLimit += 2; //increment the number of asteroids by 2 since these were destroyed themselves
 		}
 
 	}

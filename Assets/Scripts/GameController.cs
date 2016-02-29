@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour {
 	public SpawnValues spawnValues; //values used to spawn asteroids
 	public int asteroidCount; //number of initial asteroids
 	public int largeAsteroidCount; //number of large asteroids
+	public int asteroidLimit; //number of asteroids in the current wave
 	public float spawnWait; //time before new asteroid created
 	public float startWait; //time before game starts
 	public float waveWait; //time before new wave
@@ -269,7 +270,8 @@ public class GameController : MonoBehaviour {
 		while (true)
 		{
 			int largeAsteroidsLeft = largeAsteroidCount;
-			for (int i = 0; i < asteroidCount;)
+			asteroidLimit = asteroidCount;
+			while(asteroidLimit > 0)
 			{
 				//create large asteroid
 				if(largeAsteroidsLeft > 0 && Random.Range (0,1) == 0)
@@ -279,7 +281,7 @@ public class GameController : MonoBehaviour {
 					Quaternion spawnRotation = Quaternion.identity;
 					Instantiate (largeAsteroid, spawnPosition, spawnRotation);
 					yield return new WaitForSeconds (spawnWait); //wait before spawning new asteroid
-					i++;
+					asteroidLimit--;
 					largeAsteroidsLeft--;
 				}
 				else
@@ -289,7 +291,7 @@ public class GameController : MonoBehaviour {
 					Quaternion spawnRotation = Quaternion.identity;
 					Instantiate (asteroid, spawnPosition, spawnRotation);
 					yield return new WaitForSeconds (spawnWait); //wait before spawning new asteroid
-					i++;
+					asteroidLimit--;
 				}
 
 			}
