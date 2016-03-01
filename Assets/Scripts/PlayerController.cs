@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour {
 	private Plane inputTouchPlane; //plane to convert screen coords to world coords on touch
 	private GameObject shieldGameObject; //player's shield game object
 
+
+
 	void Start () {
 
 		//get reference to shield game object
@@ -27,6 +29,8 @@ public class PlayerController : MonoBehaviour {
 				shieldGameObject = transform.gameObject;
 			}
 		}
+
+
 
 		fireShots = true; //set space shit to fire shots
 		ActivateShield (INITIAL_SHIELD_DURATION); //invulnerability for 5 secs
@@ -161,7 +165,7 @@ public class PlayerController : MonoBehaviour {
 
 	//give the player shield for duration
 	public void ActivateShield(float duration) {
-		StartCoroutine (Shield(duration));
+			StartCoroutine (Shield(duration));
 	}
 
 	//make the player blink while he is invincible

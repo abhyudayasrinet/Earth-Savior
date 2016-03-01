@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using GoogleMobileAds.Api;
-
+using NativeAlert;
 
 public class MainMenuController : MonoBehaviour {
 
@@ -11,11 +11,17 @@ public class MainMenuController : MonoBehaviour {
 	public Canvas settingsMenu; //settings menu reference
 	public Canvas mainMenu; //main menu reference
 	public Canvas instructionsMenu; //instructions menu reference
-	public Button play; //play button 
-	public Button exit; //exit button
-	public Button back; //back button in settings menu
 	public Text highScoreText; //text showing the high score
 	public Slider soundSlider; //sound volume slider in settings menu
+
+	public GameObject instruction1_text; //initial text instruction
+	public GameObject instruction2_text; //megabomb text
+	public GameObject instruction2_image; //megabomb image
+	public GameObject instruction3_text; //shield text
+	public GameObject instruction3_image; //shield image
+	public GameObject instruction4_text; //health pack text
+	public GameObject instruction4_image; //health pack image
+	public GameObject nextInstruction; //next instruction button
 
 	//public Text logText;
 	BannerView bannerView; //banner view ad
@@ -27,14 +33,17 @@ public class MainMenuController : MonoBehaviour {
 		instructionsMenu.enabled = false;
 		settingsMenu.enabled = false;
 		soundSlider.value = PlayerPrefs.GetFloat ("gameVolume", 1.0f); //set slider to set volume
+		AudioListener.volume = soundSlider.value;
 		int highScore = PlayerPrefs.GetInt ("HighScore",0); //get the current highscore value
-		if (highScore > 0)
-			highScoreText.text = "HighScore : " + highScore;
-		else
-			highScoreText.text = "";
+		highScoreText.text = "HighScore : " + highScore; 
 		GetComponent<AudioSource> ().Play(); //play music
 
 		RequestBanner (); //request ad
+	}
+
+	public void RateButtonClick() {
+		
+		Application.OpenURL ("market://details?id=com.ggwp.earthsavior"); //open play store 
 	}
 
 	private void RequestBanner()
@@ -50,8 +59,6 @@ public class MainMenuController : MonoBehaviour {
 		AdRequest request2 = new AdRequest.Builder().Build();
 		// Load the banner with the request.
 		bannerView.LoadAd(request2);
-
-		//logText.text = "over";
 	}
 
 	//destroy the ad once scene changes
@@ -80,6 +87,16 @@ public class MainMenuController : MonoBehaviour {
 		mainMenu.enabled = false;
 		instructionsMenu.enabled = true;
 		bannerView.Hide (); //hide ad for space
+
+		//show only first instruction set
+		instruction1_text.SetActive(true);
+		instruction2_text.SetActive(false);
+		instruction2_image.SetActive(false);
+		instruction3_text.SetActive(false);
+		instruction3_image.SetActive(false);
+		instruction4_text.SetActive(false);
+		instruction4_image.SetActive(false);
+		nextInstruction.SetActive(true);
 	}
 
 	//back to menu from instructions
@@ -88,14 +105,29 @@ public class MainMenuController : MonoBehaviour {
 		mainMenu.enabled = true;
 		instructionsMenu.enabled = false;
 		bannerView.Show (); //show ad
+
 	}
+
+	//next button clicked on instructions menu
+	public void NextInstructionClick() {
+
+		//remove first instruction and show next set of instructions
+		instruction1_text.SetActive(false);
+		instruction2_text.SetActive(true);
+		instruction2_image.SetActive(true);
+		instruction3_text.SetActive(true);
+		instruction3_image.SetActive(true);
+		instruction4_text.SetActive(true);
+		instruction4_image.SetActive(true);
+		nextInstruction.SetActive(false);
+
+	}
+
 
 	//settings button clicked
 	public void SettingsClick() {
 		settingsMenu.enabled = true;
 		mainMenu.enabled = false;
-		//play.enabled = false;
-		//exit.enabled = false;
 	}
 
 	//sound slider is moved
@@ -108,24 +140,18 @@ public class MainMenuController : MonoBehaviour {
 	public void BackClick() {
 		settingsMenu.enabled = false;
 		mainMenu.enabled = true;
-		//play.enabled = true;
-		//exit.enabled = true;
 	}
 
 	//exit button pressed
 	public void ExitClick() {
 		quitMenu.enabled = true;
 		mainMenu.enabled = false;
-		//play.enabled = false;
-		//exit.enabled = false;
 	}
 
 	//no pressed in the quit menu
 	public void NoClick() {
 		quitMenu.enabled = false;
 		mainMenu.enabled = true;
-		//play.enabled = true;
-		//exit.enabled = true;
 	}
 
 	//yes pressed in the quit menu
@@ -138,10 +164,7 @@ public class MainMenuController : MonoBehaviour {
 
 	//play clicked
 	public void PlayClick() {
-		//Application.LoadLevel("main");
-		SceneManager.LoadScene("main");
-		//SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
+		SceneManager.LoadScene("main"); //start game
 	}
 	
 }

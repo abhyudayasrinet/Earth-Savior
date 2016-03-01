@@ -23,7 +23,7 @@ public class GameController : MonoBehaviour {
 	public Transform earthPosition; //position of earth
 	public GameObject asteroid; //asteroid object
 	public GameObject largeAsteroid; //large asteroid object
-	private bool gameOver; //holds gameover state
+	public bool gameOver; //holds gameover state
 
 
 	public GameObject player; //player spaceship gameboject
@@ -41,7 +41,7 @@ public class GameController : MonoBehaviour {
 	public int shieldDuration; //duration of shield
 	private int highScore; //current highscore
 	private int wave; //wave number
-	private bool pause; //pause game state
+	public bool pause; //pause game state
 
 	public PlayerController playerController; //reference to player controller script
 
@@ -64,16 +64,20 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void ActivateShield() {
-		if (shieldCount > 0) {
 
-			GameObject playerControllerObject = GameObject.FindWithTag ("Player"); //reference the player game object
-			playerController = playerControllerObject.GetComponent <PlayerController>();
-			playerController.ActivateShield (shieldDuration);
-			shieldCount -= 1;
-			shieldCountText.text = shieldCount+"";
-			//Debug.Log (shieldCount);
+		if(!pause && !gameOver) {
+
+			if (shieldCount > 0) {
+
+				GameObject playerControllerObject = GameObject.FindWithTag ("Player"); //reference the player game object
+				playerController = playerControllerObject.GetComponent <PlayerController>();
+				playerController.ActivateShield (shieldDuration);
+				shieldCount -= 1;
+				shieldCountText.text = shieldCount+"";
+				//Debug.Log (shieldCount);
+			}
+			//add error blinker message
 		}
-		//add error blinker message
 	}
 
 
@@ -85,14 +89,17 @@ public class GameController : MonoBehaviour {
 
 	public void ActivateMegaBomb() {
 
-		if (megaBombCount > 0) {
-			Vector3 spawnPosition = player.transform.position;
-			Quaternion spawnRotation = Quaternion.identity;
-			Instantiate (megaBombEffect, spawnPosition, spawnRotation);
-			megaBombCount -= 1;
-			megaBombCountText.text = megaBombCount + "";
+		if(!gameOver && !pause) {
+
+			if (megaBombCount > 0) {
+				Vector3 spawnPosition = player.transform.position;
+				Quaternion spawnRotation = Quaternion.identity;
+				Instantiate (megaBombEffect, spawnPosition, spawnRotation);
+				megaBombCount -= 1;
+				megaBombCountText.text = megaBombCount + "";
+			}
+			//add error blinker message
 		}
-		//add error blinker message
 	}
 
 	//when restart is clicked
@@ -159,8 +166,11 @@ public class GameController : MonoBehaviour {
 		highScore = PlayerPrefs.GetInt ("HighScore",0); //get the current highscore value
 
 
-		megaBombCount = 0; //initially set to 0
+		megaBombCount = 0; //initially no powerups
 		shieldCount = 0;
+
+		megaBombCountText.text = megaBombCount + "";
+		shieldCountText.text = shieldCount + "";
 
 		livesText.text = "Lives " + lives; //set lives banner text
 		scoreText.text = "Score : " + score; //set score banner text
@@ -182,7 +192,6 @@ public class GameController : MonoBehaviour {
 	private void RequestInterstitial()
 	{
 		string adUnitId = "ca-app-pub-4192002242677873/1267225744";
-
 
 		// Initialize an InterstitialAd.
 		interstitial = new InterstitialAd(adUnitId);
@@ -227,8 +236,10 @@ public class GameController : MonoBehaviour {
 			return;
 		lives += life; //update lives
 		livesText.text = "Lives : " + lives; //update lives banners
-		if (lives == 0) //if no more lives left end game
+		if (lives <= 0) { //if no more lives left end game
 			GameOver ();
+			livesText.text = "Lives : 0";
+		}
 	}
 
 	//update the score value

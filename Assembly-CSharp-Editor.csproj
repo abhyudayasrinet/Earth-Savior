@@ -54,7 +54,8 @@
      <Compile Include="Assets\PlayServicesResolver\Editor\ResolverVer1_1.cs" />
      <Compile Include="Assets\PlayServicesResolver\Editor\SampleDependencies.cs" />
      <Compile Include="Assets\PlayServicesResolver\Editor\SettingsDialog.cs" />
-     <None Include="Assets\Plugins\Android\GoogleMobileAdsPlugin\AndroidManifest.xml" />
+     <None Include="Assets\PluginsAd\Android\AndroidManifest.xml" />
+     <None Include="Assets\PluginsAd\Android\GoogleMobileAdsPlugin\AndroidManifest.xml" />
      <None Include="Assets\Detonator Explosion Framework\Resources\Detonator\Textures\HeatDistort.shader" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
@@ -82,6 +83,9 @@
  </Reference>
  <Reference Include="JarResolverLib">
  <HintPath>C:/Users/t-absrin/Documents/Unity/Earth-Savior/Earth-Savior/Earth-Savior/Assets/PlayServicesResolver/Editor/JarResolverLib.dll</HintPath>
+ </Reference>
+ <Reference Include="NativeAlert">
+ <HintPath>C:/Users/t-absrin/Documents/Unity/Earth-Savior/Earth-Savior/Earth-Savior/Assets/PluginsAd/NativeAlert.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>

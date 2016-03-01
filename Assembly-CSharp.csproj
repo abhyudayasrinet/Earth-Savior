@@ -77,6 +77,8 @@
      <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\MonoPInvokeCallbackAttribute.cs" />
      <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\RewardBasedVideoAdClient.cs" />
      <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\Utils.cs" />
+     <Compile Include="Assets\Native Alert\Example\NativeAlertExample.cs" />
+     <Compile Include="Assets\PluginsAd\Android\AndroidNativeAlert.cs" />
      <Compile Include="Assets\Scripts\AsteroidColliderController.cs" />
      <Compile Include="Assets\Scripts\AsteroidController.cs" />
      <Compile Include="Assets\Scripts\AsteroidMover.cs" />
@@ -94,13 +96,17 @@
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\RandomRotator.cs" />
      <Compile Include="Assets\Scripts\ShieldPowerUpController.cs" />
-     <None Include="Assets\Plugins\Android\GoogleMobileAdsPlugin\AndroidManifest.xml" />
+     <None Include="Assets\PluginsAd\Android\AndroidManifest.xml" />
+     <None Include="Assets\PluginsAd\Android\GoogleMobileAdsPlugin\AndroidManifest.xml" />
      <None Include="Assets\Detonator Explosion Framework\Resources\Detonator\Textures\HeatDistort.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="NativeAlert">
+ <HintPath>C:/Users/t-absrin/Documents/Unity/Earth-Savior/Earth-Savior/Earth-Savior/Assets/PluginsAd/NativeAlert.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
