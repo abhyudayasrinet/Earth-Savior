@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 //destroy an object when it comes in contact
@@ -15,7 +16,7 @@ public class AsteroidColliderController : MonoBehaviour {
 	public GameObject shieldPowerUp; //object reference to shield power up
 	public GameObject megaBombPowerUp; //object reference to mega bomb
 	public bool particleCollision; //to handle collision with only one particle
-	
+
 	void Start () 
 	{
 		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
@@ -34,7 +35,7 @@ public class AsteroidColliderController : MonoBehaviour {
 
 		if (particleCollision)
 			return;
-		DestroyAsteroid (true);
+		DestroyAsteroid (true, "MegaBombEffect");
 		particleCollision = true;
 		Debug.Log ("collison with " + other.tag);
 
@@ -42,7 +43,7 @@ public class AsteroidColliderController : MonoBehaviour {
 
 	//destroy the asteroid
 	//valid hit when asteroid dies by hitting shield,bolt,player,earth, megabombeffect
-	void DestroyAsteroid(bool validHit) {
+	void DestroyAsteroid(bool validHit, string otherTag) {
 
 		//create destruction effect
 		Instantiate(asteroidExplosion, transform.position, transform.rotation);
@@ -53,25 +54,37 @@ public class AsteroidColliderController : MonoBehaviour {
 		if (validHit) {
 			
 			//if it is a large asteroid then drop a health pack with a 20%
-			if (tag == "LargeAsteroid") {
+			if (tag == "LargeAsteroid" && gameController.powerUpsLeft > 0) {
 
 				int chance = Random.Range (1, 100); //probability of a powerup dropping
+
 				if (chance <= 20) { //1-20 healthpack
 					Instantiate (healthPack, gameObject.transform.position, gameObject.transform.rotation);
+					gameController.powerUpsLeft--;
 				} else if (chance <= 40) {//21-40 shield
 					Instantiate (shieldPowerUp, gameObject.transform.position, Quaternion.Euler (-90, -90, 0));
+					gameController.powerUpsLeft--;
 				} else if (chance <= 50) {
 					Instantiate (megaBombPowerUp, gameObject.transform.position, Quaternion.Euler (-90, -90, 0));
-			
+					gameController.powerUpsLeft--;
 				}
-
 			}
 
 			//update score 
 			gameController.AddScore (scoreValue);
 
 		} else {
-			gameController.asteroidLimit += 2; //increment the number of asteroids by 2 since these were destroyed themselves
+
+			//increment the number of asteroids by 2 since these were destroyed themselves
+			if (otherTag == "LargeAsteroid") 
+				gameController.largeAsteroidsLeft = Mathf.Min(gameController.largeAsteroidsLeft + 1, gameController.largeAsteroidCount);
+			else if (otherTag == "Asteroid")
+				gameController.asteroidLimit = Mathf.Min(gameController.asteroidLimit + 1, gameController.asteroidCount);
+
+			if (tag == "LargeAsteroid")
+				gameController.largeAsteroidsLeft = Mathf.Min(gameController.largeAsteroidsLeft + 1, gameController.largeAsteroidCount);
+			else if (tag == "Asteroid")
+				gameController.asteroidLimit = Mathf.Min(gameController.asteroidLimit + 1, gameController.asteroidCount);
 		}
 
 	}
@@ -92,22 +105,22 @@ public class AsteroidColliderController : MonoBehaviour {
 			asteroidController.asteroidHP -= boltController.damage;
 			if(asteroidController.asteroidHP <= 0)
 			{
-				DestroyAsteroid(true);
+				DestroyAsteroid(true, "Bolt");
 			}
 			Destroy (other.gameObject);
 			break;
 
 		case "Shield": //if it hits the shield destroy the asteroid
-			DestroyAsteroid(true);
+			DestroyAsteroid(true, "Shield");
 			break;
 
 		case "Earth" : //if it hits earth then subtract one life
-			DestroyAsteroid(true);
+			DestroyAsteroid(true, "Earth");
 			gameController.UpdateLives(-2);
 			break;
 
 		case "Player": 
-			DestroyAsteroid(true);
+			DestroyAsteroid(true, "Player");
 			PlayerController playerController = other.gameObject.GetComponent<PlayerController>();
 			if(!playerController.invincible) //if the player is destructible
 			{
@@ -137,16 +150,12 @@ public class AsteroidColliderController : MonoBehaviour {
 			break;
 
 		case "Asteroid":
-			DestroyAsteroid (false);
+			DestroyAsteroid (false, "Asteroid");
 			break;
 
 		case "LargeAsteroid":
-			DestroyAsteroid (false);
+			DestroyAsteroid (false, "LargeAsteroid");
 			break;
-			
-	//	case "MegaBombEffect":
-	//		Debug.Log("mega bomb effect hit");
-	//		break;
 
 		}
 	}

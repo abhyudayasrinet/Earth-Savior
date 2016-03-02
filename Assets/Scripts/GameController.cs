@@ -15,10 +15,14 @@ public class GameController : MonoBehaviour {
 	public SpawnValues spawnValues; //values used to spawn asteroids
 	public int asteroidCount; //number of initial asteroids
 	public int largeAsteroidCount; //number of large asteroids
+	public int largeAsteroidsLeft; //number of large asteroids left in current wave
 	public int asteroidLimit; //number of asteroids in the current wave
 	public float spawnWait; //time before new asteroid created
+	private float MIN_SPAWN_WAIT = 0.3f; //minimum spawn time
 	public float startWait; //time before game starts
 	public float waveWait; //time before new wave
+	public int powerUpsLeft; //number of power ups left to spawn in current wave
+	private int MAX_POWER_UPS = 3; //maximum power ups that can spawn in the wave
 
 	public Transform earthPosition; //position of earth
 	public GameObject asteroid; //asteroid object
@@ -57,6 +61,8 @@ public class GameController : MonoBehaviour {
 	public Canvas BackMenu; //canvas holding back menu confirmation buttons
 
 	InterstitialAd interstitial;//interstitial ad object
+
+	//public Text log; //log text
 
 	public void getShield() {
 		shieldCount = Mathf.Min (shieldCount + 1, 5);
@@ -203,6 +209,8 @@ public class GameController : MonoBehaviour {
 
 	void Update () 
 	{
+		//log.text = "Power Ups LEFT : " + powerUpsLeft + "\n Asteroid Limit : " + asteroidLimit + "\n LargeAsteroids : " + largeAsteroidsLeft;
+
 		if (Input.GetKeyDown (KeyCode.Escape)) { //if back button is pressed
 			//Application.LoadLevel(0); //go back to mainmenu
 			SceneManager.LoadScene("mainmenu");
@@ -280,8 +288,10 @@ public class GameController : MonoBehaviour {
 		yield return new WaitForSeconds (startWait); //intial wait when game begins
 		while (true)
 		{
-			int largeAsteroidsLeft = largeAsteroidCount;
+			largeAsteroidsLeft = largeAsteroidCount;
 			asteroidLimit = asteroidCount;
+			powerUpsLeft = MAX_POWER_UPS;
+
 			while(asteroidLimit > 0)
 			{
 				//create large asteroid
@@ -310,9 +320,10 @@ public class GameController : MonoBehaviour {
 			wave++; //next wave
 			asteroidCount++; //increase number of asteroids
 			waveNumberText.text = "Wave " + wave; //update wave banner
-			spawnWait -= 0.1f; //decrease intermediate spawn time 
+			if(spawnWait > MIN_SPAWN_WAIT)
+				spawnWait -= 0.1f; //decrease intermediate spawn time 
 			UpdateLives(1); //increment life
-			if(wave%3 == 0) //add a large asteroid every third wave
+			if(wave%5 == 0) //add a large asteroid every 5th wave
 				largeAsteroidCount++;
 			yield return new WaitForSeconds (waveWait); //wait before next wave
 

@@ -768,6 +768,79 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &589589993
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 589589994}
+  - 222: {fileID: 589589997}
+  - 114: {fileID: 589589996}
+  m_Layer: 5
+  m_Name: Log
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &589589994
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 589589993}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.5634179, y: 1.4242866, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1601748746}
+  m_RootOrder: 10
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 19, y: -109}
+  m_SizeDelta: {x: 447.2, y: 158}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &589589996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 589589993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.8, g: 0.49019608, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: bfdc146c23a393e4299b78dac8c4ca27, type: 3}
+    m_FontSize: 30
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1
+  m_Text: Log
+--- !u!222 &589589997
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 589589993}
 --- !u!1 &719442043
 GameObject:
   m_ObjectHideFlags: 0
@@ -1798,6 +1871,7 @@ RectTransform:
   - {fileID: 1821576024}
   - {fileID: 1344209534}
   - {fileID: 502442513}
+  - {fileID: 589589994}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_AnchorMin: {x: 0, y: 0}
@@ -2094,10 +2168,12 @@ MonoBehaviour:
     yMax: 10
   asteroidCount: 10
   largeAsteroidCount: 0
+  largeAsteroidsLeft: 0
   asteroidLimit: 0
-  spawnWait: 2
+  spawnWait: 1.5
   startWait: 3
   waveWait: 2
+  powerUpsLeft: 0
   earthPosition: {fileID: 586725548}
   asteroid: {fileID: 132170, guid: 9543c44c04b0dcd49ac54a8c1306120c, type: 2}
   largeAsteroid: {fileID: 163324, guid: 07061c0a4a137ef4882a660386dbcc45, type: 2}
@@ -2120,6 +2196,7 @@ MonoBehaviour:
   shieldCountText: {fileID: 1754305326}
   highScoreText: {fileID: 1672338533}
   BackMenu: {fileID: 1250184719}
+  log: {fileID: 589589996}
 --- !u!4 &1701823549
 Transform:
   m_ObjectHideFlags: 0
