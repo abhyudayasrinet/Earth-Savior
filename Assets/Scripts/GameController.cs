@@ -262,6 +262,7 @@ public class GameController : MonoBehaviour {
 	//generate spawn position for asteroid
 	Vector3 GetSpawnPosition()
 	{
+		Random.seed = (int)Time.timeSinceLevelLoad;
 		int choice = Random.Range(0, 2); //choose the edge to appear from 0 - left 1 - top 2 - right
 		float x, y;
 		//set x and y coords for asteroid
